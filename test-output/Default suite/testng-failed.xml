@@ -5,10 +5,17 @@
     <classes>
       <class name="cabBooking.MakeMyTrip_TestNG">
         <methods>
+<<<<<<< HEAD
           <include name="lowestCharge"/>
           <include name="selectSUV"/>
           <include name="closeBrowser"/>
           <include name="selectFromAndToCity"/>
+=======
+          <include name="adultCount"/>
+          <include name="lowestCharge"/>
+          <include name="selectSUV"/>
+          <include name="closeBrowser"/>
+>>>>>>> 4112947303617cf49966093233c387165f23fd87
           <include name="validateResult"/>
           <include name="setup"/>
         </methods>

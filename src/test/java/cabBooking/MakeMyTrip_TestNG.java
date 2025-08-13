@@ -26,9 +26,14 @@ public class MakeMyTrip_TestNG {
 	@BeforeClass
 	public void setup() 
 	{
+<<<<<<< HEAD
 		// launch browser
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
+=======
+		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+>>>>>>> 4112947303617cf49966093233c387165f23fd87
 		driver.manage().window().maximize();
 	}
 
@@ -39,7 +44,6 @@ public class MakeMyTrip_TestNG {
 		parentWindow = driver.getWindowHandle();
 		System.out.println(driver.getTitle());
 		Assert.assertTrue(driver.getTitle().contains("MakeMyTrip"));
-
 	}
 
 	@Test(priority = 2)
@@ -49,8 +53,11 @@ public class MakeMyTrip_TestNG {
 //		POPUP
 		driver.findElement(By.xpath("//span[@class=\"commonModal__close\"]")).click();
 		hp.clickCab();
+<<<<<<< HEAD
 		
 
+=======
+>>>>>>> 4112947303617cf49966093233c387165f23fd87
 	}
 
 	@Test(priority = 3)
@@ -77,7 +84,7 @@ public class MakeMyTrip_TestNG {
 		Assert.assertTrue(driver.getTitle().contains("Online Cab Booking"), "failed");
 
 	}
-
+	
 	@Test(priority = 4)
 	public void selectSUV() 
 	{
@@ -87,8 +94,12 @@ public class MakeMyTrip_TestNG {
 			popUp = driver.findElement(By.xpath("//img[@alt = 'Close']")).isDisplayed();
 			driver.findElement(By.xpath("//img[@alt = 'Close']")).click();
 			}
+<<<<<<< HEAD
 		catch (NoSuchElementException e) {
 		}
+=======
+		catch (NoSuchElementException e) {}
+>>>>>>> 4112947303617cf49966093233c387165f23fd87
 		cabFilterPage cfp = new cabFilterPage(driver);
 		cfp.clickSUV();
 		Assert.assertTrue(driver.getTitle().contains("Online Cab Booking"), "failed");
@@ -169,7 +180,8 @@ public class MakeMyTrip_TestNG {
 	}
 
 	@Test(priority = 8)
-	public void captureScreenshot() {
+	public void captureScreenshot() 
+	{
 		// capture screenshot
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
@@ -180,7 +192,8 @@ public class MakeMyTrip_TestNG {
 	}
 
 	@AfterClass
-	public void closeBrowser() {
+	public void closeBrowser() 
+	{
 		// close browser
 		driver.quit();
 		System.out.println(" Browser closed");
