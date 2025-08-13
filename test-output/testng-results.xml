@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="8" passed="8" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-08-13T11:37:17 IST" name="Suite" finished-at="2025-08-13T11:39:23 IST" duration-ms="125820">
+    <groups>
+    </groups>
+    <test started-at="2025-08-13T11:37:17 IST" name="Test" finished-at="2025-08-13T11:39:23 IST" duration-ms="125820">
+      <class name="cabBooking.MakeMyTrip_TestNG">
+        <test-method is-config="true" signature="setup()[pri:0, instance:cabBooking.MakeMyTrip_TestNG@2aceadd4]" started-at="2025-08-13T11:37:18 IST" name="setup" finished-at="2025-08-13T11:37:31 IST" duration-ms="12685" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="makeMyTrip()[pri:1, instance:cabBooking.MakeMyTrip_TestNG@2aceadd4]" started-at="2025-08-13T11:37:31 IST" name="makeMyTrip" finished-at="2025-08-13T11:37:38 IST" duration-ms="6971" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- makeMyTrip -->
+        <test-method signature="navigateToCabs()[pri:2, instance:cabBooking.MakeMyTrip_TestNG@2aceadd4]" started-at="2025-08-13T11:37:38 IST" name="navigateToCabs" finished-at="2025-08-13T11:37:41 IST" duration-ms="3230" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- navigateToCabs -->
+        <test-method signature="selectFromAndToCity()[pri:3, instance:cabBooking.MakeMyTrip_TestNG@2aceadd4]" started-at="2025-08-13T11:37:41 IST" name="selectFromAndToCity" finished-at="2025-08-13T11:38:07 IST" duration-ms="25851" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- selectFromAndToCity -->
+        <test-method signature="selectSUV()[pri:4, instance:cabBooking.MakeMyTrip_TestNG@2aceadd4]" started-at="2025-08-13T11:38:07 IST" name="selectSUV" finished-at="2025-08-13T11:38:12 IST" duration-ms="4844" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- selectSUV -->
+        <test-method signature="lowestCharge()[pri:5, instance:cabBooking.MakeMyTrip_TestNG@2aceadd4]" started-at="2025-08-13T11:38:12 IST" name="lowestCharge" finished-at="2025-08-13T11:38:13 IST" duration-ms="1180" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- lowestCharge -->
+        <test-method signature="adultCount()[pri:6, instance:cabBooking.MakeMyTrip_TestNG@2aceadd4]" started-at="2025-08-13T11:38:13 IST" name="adultCount" finished-at="2025-08-13T11:38:23 IST" duration-ms="9494" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- adultCount -->
+        <test-method signature="validateResult()[pri:7, instance:cabBooking.MakeMyTrip_TestNG@2aceadd4]" started-at="2025-08-13T11:38:23 IST" name="validateResult" finished-at="2025-08-13T11:38:53 IST" duration-ms="30553" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateResult -->
+        <test-method signature="captureScreenshot()[pri:8, instance:cabBooking.MakeMyTrip_TestNG@2aceadd4]" started-at="2025-08-13T11:38:54 IST" name="captureScreenshot" finished-at="2025-08-13T11:38:54 IST" duration-ms="321" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- captureScreenshot -->
+        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:cabBooking.MakeMyTrip_TestNG@2aceadd4]" started-at="2025-08-13T11:38:54 IST" name="closeBrowser" finished-at="2025-08-13T11:39:23 IST" duration-ms="28980" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeBrowser -->
+      </class> <!-- cabBooking.MakeMyTrip_TestNG -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
+</testng-results>
