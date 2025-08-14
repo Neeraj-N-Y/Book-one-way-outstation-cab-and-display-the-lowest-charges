@@ -1,10 +1,10 @@
-package cabBooking;
+package Helper;
 
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.testng.ITestContext;
@@ -29,7 +29,7 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 			Date dt=new Date();
 			String currentdatetimestamp=df.format(dt);
 			*/
-			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date(0));// time stamp
+			String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());// time stamp
 			repName = "Test-Report-" + timeStamp + ".html";
 			sparkReporter = new ExtentSparkReporter(".\\reports\\" + repName);// specify location of the report
 			sparkReporter.config().setDocumentTitle("opencart Automation Report"); // Title of report

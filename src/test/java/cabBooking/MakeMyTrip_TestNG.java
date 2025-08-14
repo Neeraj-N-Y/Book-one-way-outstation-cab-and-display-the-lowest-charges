@@ -1,5 +1,6 @@
 package cabBooking;
 import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
@@ -9,12 +10,14 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import Helper.ExcelUtils;
+import Helper.Logics;
 
 //@Listeners(ExtentReportManager.class)
 public class MakeMyTrip_TestNG {
@@ -22,21 +25,30 @@ public class MakeMyTrip_TestNG {
 	WebDriverWait wait;
 	String parentWindow;
 	int min = 0;
-
+	ExcelUtils util = new ExcelUtils("C:\\Users\\2419352\\eclipse-workspace\\MakeMyTrip\\Excel\\Output.xlsx");
+	Logics logic;
+	cabPage cp;
+	homePage hp;
+	giftCard gc;
+	cabFilterPage cfp;
+	giftPage gp;
+	HotelPage hotel;
 	@BeforeClass
 	public void setup() 
 	{
-<<<<<<< HEAD
 		// launch browser
 		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
-=======
-		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
->>>>>>> 4112947303617cf49966093233c387165f23fd87
 		driver.manage().window().maximize();
+		logic = new Logics(driver);
+		cp = new cabPage(driver);
+		hp = new homePage(driver);
+		gc = new giftCard(driver);
+		cfp = new cabFilterPage(driver);
+		gp = new giftPage(driver);
+		hotel = new HotelPage(driver);
 	}
-
+	
 	@Test(priority = 1)
 	public void makeMyTrip() {
 		// navigate to makeMyTrip website
@@ -49,37 +61,17 @@ public class MakeMyTrip_TestNG {
 	@Test(priority = 2)
 	public void navigateToCabs() {
 		//navigate to cab tab in menu bar
-		homePage hp = new homePage(driver);
 //		POPUP
 		driver.findElement(By.xpath("//span[@class=\"commonModal__close\"]")).click();
 		hp.clickCab();
-<<<<<<< HEAD
-		
-
-=======
->>>>>>> 4112947303617cf49966093233c387165f23fd87
 	}
 
 	@Test(priority = 3)
 	public void selectFromAndToCity() throws InterruptedException {
 		// select from city
-		cabPage cp = new cabPage(driver);
 		cp.setFromCity();
 		cp.setToCity("Manali");
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		//select date of traveling
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[@class='selectedDay']"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@aria-label=\"Next Month\"]"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@aria-label=\"Next Month\"]"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@aria-label=\"Next Month\"]"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@aria-label='Mon Dec 08 2025']"))).click();
-		// select pickup time
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-cy='pickupTime']"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='06  Hr']"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='30  min']"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='AM']"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='APPLY']"))).click();
-
+		logic.dateHandler();
 		cp.clickSearch();
 		Assert.assertTrue(driver.getTitle().contains("Online Cab Booking"), "failed");
 
@@ -94,12 +86,7 @@ public class MakeMyTrip_TestNG {
 			popUp = driver.findElement(By.xpath("//img[@alt = 'Close']")).isDisplayed();
 			driver.findElement(By.xpath("//img[@alt = 'Close']")).click();
 			}
-<<<<<<< HEAD
-		catch (NoSuchElementException e) {
-		}
-=======
 		catch (NoSuchElementException e) {}
->>>>>>> 4112947303617cf49966093233c387165f23fd87
 		cabFilterPage cfp = new cabFilterPage(driver);
 		cfp.clickSUV();
 		Assert.assertTrue(driver.getTitle().contains("Online Cab Booking"), "failed");
@@ -108,23 +95,8 @@ public class MakeMyTrip_TestNG {
 	@Test(priority = 5)
 	public void lowestCharge() 
 	{
-		// return least charge SUV
-		cabFilterPage cfp = new cabFilterPage(driver);
-		int cost;
-		int min = 0;
-		for (WebElement e : cfp.getCosts()) 
-		{	
-			cost = Integer.parseInt(e.getText().replace("₹", "").replace(",", ""));
-			if(min==0)
-			{
-				min=cost;
-			}
-			if (min > cost) 
-			{
-				min = cost;
-			}
-			System.out.println(e.getText());
-		}
+		// return least charge SUV		
+		min = logic.findMinValue(cfp.getCosts());
 		System.out.println(min + " is the least");
 		Assert.assertTrue(min > 0, "failed");
 	}
@@ -132,14 +104,21 @@ public class MakeMyTrip_TestNG {
 	@Test(priority = 6)
 	public void adultCount() {
 		// return count of adults
-		cabFilterPage cfp = new cabFilterPage(driver);
+		int cell = 0;
 		cfp.clickHotel();
-		
-		HotelPage hotel = new HotelPage(driver);
 		hotel.clickRoomsAndGuests();
 		hotel.selectAdults();
 		for (WebElement i : hotel.fetchCountOfAdults()) {
+			try 
+			{
+				util.setCellData("Output", cell, 1, i.getText());
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
 			System.out.println(i.getText());
+			cell++;
 		}
 		Assert.assertTrue(hotel.fetchCountOfAdults().size() > 0, "Failed");
 	}
@@ -149,7 +128,6 @@ public class MakeMyTrip_TestNG {
 	@Test(priority = 7)
 	public void validateResult() 
 	{
-		cabFilterPage cfp = new cabFilterPage(driver);
 		driver.navigate().back();
 		
 		//navigate to more 
@@ -166,10 +144,8 @@ public class MakeMyTrip_TestNG {
 		} catch (NoSuchElementException e) {
 		}
 		// click on wedding gift card
-		giftPage gp = new giftPage(driver);
 		gp.chooseGift();
 		// enter input details
-		giftCard gc = new giftCard(driver);
 		gc.setName("Sreekanth");
 		gc.setMobile("9876543210");
 		gc.setEmail("asgfveuyf");
