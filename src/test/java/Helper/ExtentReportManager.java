@@ -16,6 +16,8 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+
+import cabBooking.MakeMyTrip_TestNG;
  
 
 	public class ExtentReportManager implements ITestListener {
@@ -61,13 +63,13 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 			test.assignCategory(result.getMethod().getGroups());
 			test.log(Status.FAIL,result.getName()+" got failed");
 			test.log(Status.INFO, result.getThrowable().getMessage());
-//			try {
-//				String imgPath = new BaseClass().captureScreen(result.getName());
-//				test.addScreenCaptureFromPath(imgPath);
-//				
-//			} catch (IOException e1) {
-//				e1.printStackTrace();
-//			}
+			try {
+				String imgPath = new MakeMyTrip_TestNG().captureScreen(result.getName());
+				test.addScreenCaptureFromPath(imgPath);
+				
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 		public void onTestSkipped(ITestResult result) {
 			test = extent.createTest(result.getTestClass().getName());

@@ -1,0 +1,10 @@
+2025-08-19 17:30:58 INFO  MakeMyTrip_TestNG:68 - Browser Started
+2025-08-19 17:30:58 INFO  MakeMyTrip_TestNG:74 - TEST1 Started
+2025-08-19 17:31:02 INFO  MakeMyTrip_TestNG:85 - TEST2 Started
+2025-08-19 17:31:04 INFO  MakeMyTrip_TestNG:94 - TEST3 Started
+2025-08-19 17:31:13 INFO  MakeMyTrip_TestNG:108 - TEST4 Started
+2025-08-19 17:31:23 INFO  MakeMyTrip_TestNG:123 - TEST5 Started
+2025-08-19 17:31:26 INFO  MakeMyTrip_TestNG:133 - TEST6 Started
+2025-08-19 17:31:33 INFO  MakeMyTrip_TestNG:165 - TEST7 Started
+2025-08-19 17:31:48 INFO  MakeMyTrip_TestNG:208 - All test cases executed
+2025-08-19 17:31:48 INFO  MakeMyTrip_TestNG:209 - Closing Browser

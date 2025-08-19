@@ -28,6 +28,13 @@ public class Logics
 		int cost;
 		int cell = 0;
 		int min=0;
+		try {
+			util.setCellData("Output", cell,0, "Cost");
+			cell++;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		for (WebElement e : costs) 
 		{	
 			cost = Integer.parseInt(e.getText().replace("₹", "").replace(",", ""));

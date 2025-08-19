@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -21,7 +23,8 @@ import Helper.Logics;
 
 //@Listeners(ExtentReportManager.class)
 public class MakeMyTrip_TestNG {
-	WebDriver driver;
+	protected static Logger logger;
+	static WebDriver driver;
 	WebDriverWait wait;
 	String parentWindow;
 	int min = 0;
@@ -33,10 +36,25 @@ public class MakeMyTrip_TestNG {
 	cabFilterPage cfp;
 	giftPage gp;
 	HotelPage hotel;
+	
+	
+
+	public String captureScreen(String name) 
+	{
+		File target = new File(System.getProperty("user.dir") + "\\Screenshots\\'"+name+"'.png");
+		TakesScreenshot ts = (TakesScreenshot) this.driver;
+		File source = ts.getScreenshotAs(OutputType.FILE);
+		source.renameTo(target);
+		return target.getAbsolutePath();
+	}
+	
+	
+	
 	@BeforeClass
 	public void setup() 
 	{
 		// launch browser
+		logger = LogManager.getLogger(MakeMyTrip_TestNG.class);
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.manage().window().maximize();
@@ -47,11 +65,13 @@ public class MakeMyTrip_TestNG {
 		cfp = new cabFilterPage(driver);
 		gp = new giftPage(driver);
 		hotel = new HotelPage(driver);
+		logger.info("Browser Started");
 	}
 	
 	@Test(priority = 1)
 	public void makeMyTrip() {
 		// navigate to makeMyTrip website
+		logger.info("TEST1 Started");
 		driver.get("https://www.makemytrip.com/");
 		parentWindow = driver.getWindowHandle();
 		System.out.println(driver.getTitle());
@@ -62,6 +82,7 @@ public class MakeMyTrip_TestNG {
 	public void navigateToCabs() {
 		//navigate to cab tab in menu bar
 //		POPUP
+		logger.info("TEST2 Started");
 		driver.findElement(By.xpath("//span[@class=\"commonModal__close\"]")).click();
 		hp.clickCab();
 	}
@@ -69,6 +90,8 @@ public class MakeMyTrip_TestNG {
 	@Test(priority = 3)
 	public void selectFromAndToCity() throws InterruptedException {
 		// select from city
+
+		logger.info("TEST3 Started");
 		cp.setFromCity();
 		cp.setToCity("Manali");
 		logic.dateHandler();
@@ -81,6 +104,8 @@ public class MakeMyTrip_TestNG {
 	public void selectSUV() 
 	{
 //		POPUP
+
+		logger.info("TEST4 Started");
 		try {
 			boolean popUp = false;
 			popUp = driver.findElement(By.xpath("//img[@alt = 'Close']")).isDisplayed();
@@ -95,6 +120,7 @@ public class MakeMyTrip_TestNG {
 	@Test(priority = 5)
 	public void lowestCharge() 
 	{
+		logger.info("TEST5 Started");
 		// return least charge SUV		
 		min = logic.findMinValue(cfp.getCosts());
 		System.out.println(min + " is the least");
@@ -104,10 +130,18 @@ public class MakeMyTrip_TestNG {
 	@Test(priority = 6)
 	public void adultCount() {
 		// return count of adults
+		logger.info("TEST6 Started");
 		int cell = 0;
 		cfp.clickHotel();
 		hotel.clickRoomsAndGuests();
 		hotel.selectAdults();
+		try {
+			util.setCellData("Output", cell, 1,"No. of Adults");
+			cell++;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for (WebElement i : hotel.fetchCountOfAdults()) {
 			try 
 			{
@@ -128,6 +162,7 @@ public class MakeMyTrip_TestNG {
 	@Test(priority = 7)
 	public void validateResult() 
 	{
+		logger.info("TEST7 Started");
 		driver.navigate().back();
 		
 		//navigate to more 
@@ -145,7 +180,6 @@ public class MakeMyTrip_TestNG {
 		}
 		// click on wedding gift card
 		gp.chooseGift();
-		// enter input details
 		gc.setName("Sreekanth");
 		gc.setMobile("9876543210");
 		gc.setEmail("asgfveuyf");
@@ -155,24 +189,27 @@ public class MakeMyTrip_TestNG {
 		Assert.assertEquals(s, gc.getMessage(), "Text validation failed");
 	}
 
-	@Test(priority = 8)
-	public void captureScreenshot() 
-	{
-		// capture screenshot
-		TakesScreenshot ts = (TakesScreenshot) driver;
-		File source = ts.getScreenshotAs(OutputType.FILE);
-		File target = new File(System.getProperty("user.dir") + "\\ScreenShot\\fullpage.png");
-		source.renameTo(target);
-		System.out.println("Screenshot captured");
-		Assert.assertNotNull(source, "Screenshot not captured");
-	}
+//	@Test(priority = 8)
+//	public void captureScreenshot() 
+//	{
+//		// capture screenshot
+//		TakesScreenshot ts = (TakesScreenshot) driver;
+//		File source = ts.getScreenshotAs(OutputType.FILE);
+//		File target = new File(System.getProperty("user.dir") + "\\ScreenShot\\fullpage.png");
+//		source.renameTo(target);
+//		System.out.println("Screenshot captured");
+//		Assert.assertNotNull(source, "Screenshot not captured");
+//	}
 
 	@AfterClass
 	public void closeBrowser() 
 	{
 		// close browser
+		logger.info("All test cases executed");
+		logger.info("Closing Browser");
 		driver.quit();
 		System.out.println(" Browser closed");
 	}
+
 
 }

@@ -8,8 +8,8 @@
     <classes>
       <class name="cabBooking.MakeMyTrip_TestNG">
         <methods>
-          <include name="adultCount"/>
           <include name="closeBrowser"/>
+          <include name="validateResult"/>
           <include name="setup"/>
         </methods>
       </class> <!-- cabBooking.MakeMyTrip_TestNG -->
